@@ -58,9 +58,21 @@ to a file inside the container that you would need a shell to read.
 **After deploying:** copy `OCTOP_DEFAULT_PASSWORD` from the service's Variables tab, open the public
 domain, and sign in as **`admin`**. Then add a model provider in the dashboard and create an agent.
 
-That variable is the **initial** password, applied only while there is no database. Changing it
-later does nothing, deliberately — a password you changed in the web console must not be reverted by
-the next redeploy. Reset it with `octop user passwd --username admin` from a shell on the service.
+**How the admin password is handled, and why.** Octop already does the right thing on its own: when
+no password is supplied, its container entrypoint generates a random one and writes it to
+`~/.octop/credential.txt`. That is safe, but on Railway the only way to read a file inside the
+container is to open a shell session on the service — an awkward first step for a one-click deploy.
+So this template hands Octop a **password generated per deployment by Railway**
+(`${{secret(24)}}`), which means it is visible in the service's Variables tab from the moment the
+deploy finishes, and different for every deployment of this template. The container refuses to start
+if that variable is empty or shorter than 12 characters, so there is no path to an unprotected
+instance.
+
+The variable is the **initial** password: it is applied only while there is no database yet.
+Changing it afterwards does nothing, and that is deliberate — Octop lets you change your password in
+the web console, and upstream's own credential file says the console password wins, so re-applying
+the variable on each boot would silently revert a change you made. To reset a forgotten password,
+run `octop user passwd --username admin` from a shell on the service.
 
 **Security.** Unauthenticated API calls are refused (401), a wrong password is refused (401), and
 upstream ships real login rate limiting (5 attempts, 15-minute lockout). The JWT secret is 32 random

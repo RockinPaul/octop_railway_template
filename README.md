@@ -34,6 +34,13 @@ The deploy form asks for nothing you have to invent.
 2. Open the public domain and sign in as **`admin`**.
 3. Add a model provider in the dashboard (or set `OPENAI_API_KEY`), then create an agent.
 
+**Why the password is a Railway-generated secret.** Upstream already handles this well: with no
+password supplied, Octop's own entrypoint generates a random one and writes it to
+`~/.octop/credential.txt`. On Railway that file needs a shell session on the service to read, so
+this template hands Octop a `${{secret(24)}}` instead — generated per deployment, visible in the
+Variables tab as soon as the deploy finishes, and different for every deployment. The entrypoint
+refuses to start on an empty or short value, so there is no path to an unprotected instance.
+
 `OCTOP_DEFAULT_PASSWORD` is the **initial** password, applied only when there is no database yet.
 Changing the variable later does nothing — deliberately, so that a password you changed in the web
 console is not silently reverted by the next redeploy. To reset it, run
