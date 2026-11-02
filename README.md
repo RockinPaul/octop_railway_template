@@ -10,7 +10,7 @@ state on a volume and an admin password generated for your deployment.
 
 | Service | Base | Public | Role |
 |---|---|---|---|
-| `octop` | `python:3.12-slim` + `octop` 1.0.0 | **yes** | The whole assistant: dashboard, API, agents, cron. |
+| `octop` | `python:3.12-slim` + `octop` 1.0.2 | **yes** | The whole assistant: dashboard, API, agents, cron. |
 
 One service, one volume, no gateway. Octop runs as a single process that serves the dashboard, the
 HTTP/SSE/WebSocket API, the IM channels and the scheduler from one control-plane database.

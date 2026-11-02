@@ -48,7 +48,7 @@ to a file inside the container that you would need a shell to read.
 
 ### Deployment Dependencies
 
-- Upstream project: [TencentCloud/Octop](https://github.com/TencentCloud/Octop) (MIT), released package `octop` 1.0.0
+- Upstream project: [TencentCloud/Octop](https://github.com/TencentCloud/Octop) (MIT), released package `octop` 1.0.2
   on PyPI: [pypi.org/project/octop](https://pypi.org/project/octop/).
 - Upstream documentation: [TencentCloud/Octop docs](https://github.com/TencentCloud/Octop/tree/main/docs).
 - Template source: [RockinPaul/octop_railway_template](https://github.com/RockinPaul/octop_railway_template) (MIT).

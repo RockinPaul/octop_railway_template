@@ -5,7 +5,7 @@
 # repeating upstream's two-stage npm build.
 FROM python:3.12-slim
 
-ARG OCTOP_VERSION=1.0.0
+ARG OCTOP_VERSION=1.0.2
 
 # uv, not pip: Octop's dependency tree defeats pip's resolver outright
 # ("ResolutionTooDeep: 200000" after ~9 minutes). Upstream only ever installs it
